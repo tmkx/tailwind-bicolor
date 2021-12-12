@@ -1,0 +1,35 @@
+{
+  "name": "tailwind-bicolor",
+  "version": "0.0.1",
+  "description": "Auto handle tailwind dark color",
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "dark",
+    "night",
+    "bicolor"
+  ],
+  "author": "Tmk <i@tmk.im>",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.4",
+    "tailwindcss": "^3.0.1",
+    "tsup": "^5.11.1",
+    "typescript": "^4.5.3"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.4",
+    "tailwindcss": "^3.0.1"
+  }
+}
