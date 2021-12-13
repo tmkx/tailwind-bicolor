@@ -29,16 +29,18 @@ const getDarkColor = ({
   const modifier = path.pop();
 
   if (modifier && modifier in modifierPairMap) {
-    // return theme(`colors.${path.join('.')}.${modifierPairMap[modifier]}`);
     return theme(['colors', ...path, modifierPairMap[modifier]]);
   }
 
   return '';
 };
 
-const variableConfig: Record<string, { prefix: string; plugin: string; variable: string }> = {
+const variableConfig: Record<string, { prefix: string; plugin?: string; variable?: string }> = {
   'background-color': { prefix: 'bg', plugin: 'backgroundOpacity', variable: '--tw-bg-opacity' },
   color: { prefix: 'text', plugin: 'textOpacity', variable: '--tw-text-opacity' },
+  'text-decoration-color': { prefix: 'decoration' },
+  'border-color': { prefix: 'border', plugin: 'borderOpacity', variable: '--tw-border-opacity' },
+  'outline-color': { prefix: 'outline' },
 };
 
 const prefixes = Object.values(variableConfig).map(({ prefix }) => prefix);
@@ -67,13 +69,14 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
             }
 
             if (decl.prop in variableConfig && bareSelector.startsWith(`${variableConfig[decl.prop].prefix}-`)) {
-              decl.value = corePlugins(variableConfig[decl.prop].plugin)
-                ? withAlphaVariable({
-                    color,
-                    property: 'color',
-                    variable: variableConfig[decl.prop].variable,
-                  }).color
-                : color;
+              decl.value =
+                variableConfig[decl.prop].variable && corePlugins(variableConfig[decl.prop].plugin)
+                  ? withAlphaVariable({
+                      color,
+                      property: 'color',
+                      variable: variableConfig[decl.prop].variable!,
+                    }).color
+                  : color;
             }
           });
         });

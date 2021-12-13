@@ -54,3 +54,6 @@ prefix support list:
 
 - bg (background-color)
 - text (color)
+- decoration (text-decoration-color)
+- border (border-color)
+- outline (outline-color)
