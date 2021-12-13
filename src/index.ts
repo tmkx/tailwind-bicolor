@@ -1,7 +1,9 @@
 import plugin from 'tailwindcss/plugin';
 import withAlphaVariable from 'tailwindcss/lib/util/withAlphaVariable';
 
-const colorNumberMap: Record<string, string> = {
+const modifierPairMap: Record<string, string> = {
+  white: 'black',
+  black: 'white',
   50: '900',
   100: '800',
   200: '700',
@@ -21,13 +23,14 @@ const getDarkColor = ({
 }: {
   selector: string;
   colorCode: string;
-  theme: (path: string, defaultValue?: string) => string;
+  theme: (path: string | string[], defaultValue?: string) => string;
 }): string => {
   const path = colorCode.split('-');
-  const colorNumber = path.pop();
+  const modifier = path.pop();
 
-  if (colorNumber && /^\d+$/.test(colorNumber)) {
-    return theme(`colors.${path.join('.')}.${colorNumberMap[colorNumber]}`);
+  if (modifier && modifier in modifierPairMap) {
+    // return theme(`colors.${path.join('.')}.${modifierPairMap[modifier]}`);
+    return theme(['colors', ...path, modifierPairMap[modifier]]);
   }
 
   return '';
@@ -38,6 +41,8 @@ const variableConfig: Record<string, { prefix: string; plugin: string; variable:
   color: { prefix: 'text', plugin: 'textOpacity', variable: '--tw-text-opacity' },
 };
 
+const prefixes = Object.values(variableConfig).map(({ prefix }) => prefix);
+
 export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
   plugin(({ addVariant, theme, e: encode, corePlugins }) => {
     addVariant(variantName, [
@@ -45,7 +50,7 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
       ({ container }) => {
         container.walkRules((rule) => {
           const bareSelector = rule.selector.slice(1);
-          if (!bareSelector.startsWith('text') && !bareSelector.startsWith('bg')) return;
+          if (prefixes.every((prefix) => !bareSelector.startsWith(`${prefix}-`))) return;
 
           // get color name
           const colorCode = bareSelector.replace(/^\w+\-/, '');

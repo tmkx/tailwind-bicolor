@@ -4,10 +4,13 @@ Auto handle tailwind dark color.
 
 > Tested in tailwind 3.x only.
 
+## Features
+
+- `bg-white` to `bg-black`
 - `bg-slate-50` to `bg-slate-900`
 - `bg-slate-100` to `bg-slate-800`
 - `bg-slate-200` to `bg-slate-700`
-- ...
+- and so on...
 
 For example:
 
@@ -40,3 +43,8 @@ module.exports = {
   plugins: [bicolor()],
 };
 ```
+
+prefix support list:
+
+- bg (background-color)
+- text (color)

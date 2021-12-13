@@ -1,3 +1,7 @@
+declare module 'tailwindcss' {
+  export default any;
+}
+
 declare module 'tailwindcss/plugin' {
   type VariantFunctions = (helpers: {
     modifySelectors: any;
@@ -36,7 +40,7 @@ declare module 'tailwindcss/plugin' {
       /**
        * for looking up values in the user’s theme configuration
        */
-      theme: (path: string, defaultValue?: string) => string;
+      theme: (path: string | string[], defaultValue?: string) => string;
       /**
        * for looking up values in the user’s Tailwind configuration
        */
