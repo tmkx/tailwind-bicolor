@@ -1,6 +1,6 @@
 import test from 'ava';
 import bicolor from '../src';
-import { createClassNamesCompiler } from './_helpers';
+import { createClassNamesCompiler } from './helpers';
 
 /**
  * default class names compiler
