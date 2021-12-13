@@ -54,7 +54,7 @@ test('support text', async (t) => {
   }
 });
 
-test.only('support reverse `white` and `black`', async (t) => {
+test('support reverse `white` and `black`', async (t) => {
   t.true((await compileClassNames(`bi:bg-white`)).includes(await compileClassNames(`bg-black`)));
   t.true((await compileClassNames(`bi:bg-black`)).includes(await compileClassNames(`bg-white`)));
 });

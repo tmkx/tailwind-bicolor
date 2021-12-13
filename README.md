@@ -2,6 +2,12 @@
 
 Auto handle tailwind dark color.
 
+```html
+<div class="bg-white dark:bg-black"></div>
+<!-- Replace with below ↓↓↓ -->
+<div class="bi:bg-white"></div>
+```
+
 > Tested in tailwind 3.x only.
 
 ## Features
@@ -15,7 +21,7 @@ Auto handle tailwind dark color.
 For example:
 
 ```html
-<div classNames="bi:bg-green-400"></div>
+<div class="bi:bg-green-400"></div>
 ```
 
 will generate:
