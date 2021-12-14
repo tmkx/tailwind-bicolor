@@ -2,6 +2,10 @@ declare module 'tailwindcss' {
   export default any;
 }
 
+declare module 'tailwindcss/colors' {
+  export default any;
+}
+
 declare module 'tailwindcss/plugin' {
   type VariantFunctions = (helpers: {
     modifySelectors: any;

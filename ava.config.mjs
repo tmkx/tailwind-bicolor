@@ -1,5 +1,5 @@
 export default {
-  files: ['test/*.test.ts'],
+  files: ['test/**/*.test.ts'],
   extensions: ['ts'],
   require: ['sucrase/register'],
   failFast: true,

@@ -1,5 +1,6 @@
-import tailwind from 'tailwindcss';
 import postcss from 'postcss';
+import tailwind from 'tailwindcss';
+import { withAlphaValue, default as _withAlphaVariable } from 'tailwindcss/lib/util/withAlphaVariable';
 
 function isPlugin(pluginOrConfig?: unknown): boolean {
   return (
@@ -36,3 +37,22 @@ export function createClassNamesCompiler(pluginOrConfig?: unknown, ruleName = '.
   const processor = createProcessor(pluginOrConfig);
   return (classNames: string) => processor(`${ruleName} { @apply ${classNames}; }`);
 }
+
+export function findStringCount(haystack: string, needle: string) {
+  let count = 0;
+  let index = -1;
+  while ((index = haystack.indexOf(needle, index + 1)) > -1) {
+    ++count;
+  }
+  return count;
+}
+
+export function withAlphaVariable(color: string, variable: string) {
+  return _withAlphaVariable({
+    color,
+    property: 'color',
+    variable,
+  }).color;
+}
+
+export { withAlphaValue };

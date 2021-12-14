@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@types/node': ^16.11.12
   ava: ^4.0.0-rc.1
   postcss: ^8.4.5
   sucrase: ^3.20.3
@@ -9,6 +10,7 @@ specifiers:
   typescript: ^4.5.4
 
 devDependencies:
+  '@types/node': 16.11.12
   ava: 4.0.0-rc.1
   postcss: 8.4.5
   sucrase: 3.20.3
@@ -58,6 +60,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@types/node/16.11.12:
+    resolution: {integrity: sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==}
     dev: true
 
   /@types/parse-json/4.0.0:

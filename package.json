@@ -1,6 +1,6 @@
 {
   "name": "tailwind-bicolor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Auto handle tailwind dark color",
   "keywords": [
     "tailwind",
@@ -33,6 +33,7 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
+    "@types/node": "^16.11.12",
     "ava": "^4.0.0-rc.1",
     "postcss": "^8.4.5",
     "sucrase": "^3.20.3",

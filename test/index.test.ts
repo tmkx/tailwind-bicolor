@@ -1,6 +1,7 @@
 import test from 'ava';
+import colors from 'tailwindcss/colors';
 import bicolor from '../src';
-import { createClassNamesCompiler } from './helpers';
+import { createClassNamesCompiler, findStringCount, withAlphaVariable, withAlphaValue } from './helpers';
 
 /**
  * default class names compiler
@@ -37,27 +38,26 @@ test('support background-color with opacity', async (t) => {
   const compile = createClassNamesCompiler(bicolor());
 
   for (const [a, b] of modifierPairs) {
-    const targetBgDecl = (await compile(`bg-green-${b}`)).match(/background-color:.+/)?.[0];
-
-    t.truthy(targetBgDecl!.includes('--tw-bg-opacity'));
-    t.true((await compile(`bi:bg-green-${a}`)).includes(targetBgDecl!));
+    const result = await compile(`bi:bg-green-${a}`);
+    t.is(findStringCount(result, withAlphaVariable(colors.green[a], '--tw-bg-opacity')), 1);
+    t.is(findStringCount(result, withAlphaVariable(colors.green[b], '--tw-bg-opacity')), 1);
   }
 });
 
 test('support background-color', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:bg-green-${a}`);
-    const bResult = await compile(`bg-green-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:bg-green-${a}`);
+    t.is(findStringCount(result, colors.green[a]), 1);
+    t.is(findStringCount(result, colors.green[b]), 1);
   }
 });
 
 test('support text', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:text-red-${a}`);
-    const bResult = await compile(`text-red-${b}`);
-    t.assert(aResult.includes('@media (prefers-color-scheme: dark)'));
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:text-red-${a}`);
+    t.assert(result.includes('@media (prefers-color-scheme: dark)'));
+    t.is(findStringCount(result, colors.red[a]), 1);
+    t.is(findStringCount(result, colors.red[b]), 1);
   }
 });
 
@@ -71,11 +71,12 @@ test('support class dark mode', async (t) => {
   });
 
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:text-red-${a}`);
-    const bResult = await compile(`text-red-${b}`);
-    t.assert(!aResult.includes('@media (prefers-color-scheme: dark)'));
-    t.assert(aResult.includes('.dark'));
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:text-red-${a}`);
+
+    t.assert(!result.includes('@media (prefers-color-scheme: dark)'));
+    t.assert(result.includes('.dark'));
+    t.is(findStringCount(result, colors.red[a]), 1);
+    t.is(findStringCount(result, colors.red[b]), 1);
   }
 });
 
@@ -91,99 +92,108 @@ test('support text:hover', async (t) => {
 
 test('support custom opacity', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:text-red-${a}/30`);
-    const bResult = await compile(`text-red-${b}/30`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:text-red-${a}/30`);
+    t.is(findStringCount(result, withAlphaValue(colors.red[a], 0.3)), 1);
+    t.is(findStringCount(result, withAlphaValue(colors.red[b], 0.3)), 1);
   }
 });
 
 test('support decoration', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:decoration-teal-${a}`);
-    const bResult = await compile(`decoration-teal-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:decoration-teal-${a}`);
+    t.is(findStringCount(result, colors.teal[a]), 1);
+    t.is(findStringCount(result, colors.teal[b]), 1);
   }
 });
 
 test('support border', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:border-orange-${a}`);
-    const bResult = await compile(`border-orange-${b}`);
-    t.assert(aResult.includes(bResult), aResult);
+    const result = await compile(`bi:border-orange-${a}`);
+    t.is(findStringCount(result, colors.orange[a]), 1);
+    t.is(findStringCount(result, colors.orange[b]), 1);
+  }
+});
+
+test('support border-x', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const result = await compile(`bi:border-x-amber-${a}`);
+    t.is(findStringCount(result, colors.amber[a]), 2);
+    t.is(findStringCount(result, colors.amber[b]), 2);
   }
 });
 
 test('support outline', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:outline-lime-${a}`);
-    const bResult = await compile(`outline-lime-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:outline-lime-${a}`);
+    t.is(findStringCount(result, colors.lime[a]), 1);
+    t.is(findStringCount(result, colors.lime[b]), 1);
   }
 });
 
 test('support accent', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:accent-lime-${a}`);
-    const bResult = await compile(`accent-lime-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:accent-lime-${a}`);
+    t.is(findStringCount(result, colors.lime[a]), 1);
+    t.is(findStringCount(result, colors.lime[b]), 1);
   }
 });
 
 test('support caret', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:caret-lime-${a}`);
-    const bResult = await compile(`caret-lime-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:caret-lime-${a}`);
+    t.is(findStringCount(result, colors.lime[a]), 1);
+    t.is(findStringCount(result, colors.lime[b]), 1);
   }
 });
 
 test('support fill', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:fill-lime-${a}`);
-    const bResult = await compile(`fill-lime-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:fill-lime-${a}`);
+    t.is(findStringCount(result, colors.lime[a]), 1);
+    t.is(findStringCount(result, colors.lime[b]), 1);
   }
 });
 
 test('support stroke', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:stroke-lime-${a}`);
-    const bResult = await compile(`stroke-lime-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:stroke-lime-${a}`);
+    t.is(findStringCount(result, colors.lime[a]), 1);
+    t.is(findStringCount(result, colors.lime[b]), 1);
   }
 });
 
 test('support shadow', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:shadow-rose-${a}`);
-    const bResult = await compile(`shadow-rose-${b}`);
-    t.assert(aResult.includes(bResult.match(/(--tw-shadow-color:.+);/)?.[1] || 'UNMATCHED'));
+    const result = await compile(`bi:shadow-rose-${a}`);
+    t.is(findStringCount(result, colors.rose[a]), 1);
+    t.is(findStringCount(result, colors.rose[b]), 1);
   }
 });
 
 test('support ring', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:ring-rose-${a}`);
-    const bResult = await compile(`ring-rose-${b}`);
-    t.assert(aResult.includes(bResult.match(/(--tw-ring-color:.+)/)?.[1] || 'UNMATCHED'));
+    const result = await compile(`bi:ring-rose-${a}`);
+    t.is(findStringCount(result, withAlphaVariable(colors.rose[a], '--tw-ring-opacity')), 1);
+    t.is(findStringCount(result, withAlphaVariable(colors.rose[b], '--tw-ring-opacity')), 1);
   }
 });
 
 test('support ring-offset', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:ring-offset-zinc-${a}`);
-    const bResult = await compile(`ring-offset-zinc-${b}`);
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:ring-offset-zinc-${a}`);
+    t.is(findStringCount(result, colors.zinc[a]), 1);
+    t.is(findStringCount(result, colors.zinc[b]), 1);
   }
 });
 
 test('support divide', async (t) => {
   for (const [a, b] of modifierPairs) {
-    const aResult = await compile(`bi:divide-zinc-${a}`);
-    const bResult = await compile(`divide-zinc-${b}`);
-    t.assert(aResult.includes('.test'));
-    t.assert(bResult.includes('.test'));
-    t.assert(aResult.includes(bResult));
+    const result = await compile(`bi:divide-zinc-${a}`);
+
+    t.is(findStringCount(result, '.test > :not([hidden]) ~ :not([hidden])'), 2);
+    t.is(findStringCount(result, '@media (prefers-color-scheme: dark)'), 1);
+    t.is(findStringCount(result, colors.zinc[a]), 1);
+    t.is(findStringCount(result, colors.zinc[b]), 1);
   }
 });
 
