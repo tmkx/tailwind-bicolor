@@ -56,4 +56,11 @@ prefix support list:
 - text (color)
 - decoration (text-decoration-color)
 - border (border-color)
+- border-x, border-y, border-t, border-r, border-b, border-l
 - outline (outline-color)
+- accent (accent-color)
+- caret (caret-color)
+- fill
+- stroke
+- shadow
+- ring, ring-offset

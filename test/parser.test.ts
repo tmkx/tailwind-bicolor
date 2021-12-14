@@ -13,6 +13,36 @@ test('should parse class color', (t) => {
     shade: '100',
   });
 
+  t.deepEqual(parseClassColor('text-regal-blue'), {
+    prefix: 'text',
+    color: 'regal-blue',
+  });
+
+  t.deepEqual(parseClassColor('text-regal-blue-300'), {
+    prefix: 'text',
+    color: 'regal-blue',
+    shade: '300',
+  });
+
+  t.deepEqual(parseClassColor('text-regal-blue-300/60'), {
+    prefix: 'text',
+    color: 'regal-blue',
+    shade: '300',
+    opacity: '60',
+  });
+
+  t.deepEqual(parseClassColor('text-regal-blue/60'), {
+    prefix: 'text',
+    color: 'regal-blue',
+    opacity: '60',
+  });
+
+  t.deepEqual(parseClassColor('ring-offset-regal-blue/60'), {
+    prefix: 'ring-offset',
+    color: 'regal-blue',
+    opacity: '60',
+  });
+
   t.deepEqual(parseClassColor('bg-red-200'), {
     prefix: 'bg',
     color: 'red',

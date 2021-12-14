@@ -39,12 +39,6 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
 
           rule.selector = `.dark .${variantName}${encode(`:${bareSelector}`)}`;
           rule.walkDecls((decl) => {
-            if (decl.prop.startsWith('--')) {
-              // remove css variables (normal state has declared)
-              decl.remove();
-              return;
-            }
-
             if (colorConfig.attrs.includes(decl.prop)) {
               decl.value =
                 colorConfig.variable && corePlugins(colorConfig.plugin)
@@ -54,6 +48,10 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
                       variable: colorConfig.variable!,
                     }).color
                   : color;
+            } else if (decl.prop.startsWith('--')) {
+              // remove css variables (normal state has declared)
+              decl.remove();
+              return;
             }
           });
         });

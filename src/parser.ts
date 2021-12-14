@@ -16,25 +16,25 @@ export function parseClassColor(className: string): ClassColor | false {
   className = className.slice(prefix.length + 1);
 
   let result: RegExpExecArray | null;
-  if ((result = /^(\w+)-(\d+)$/.exec(className))) {
+  if ((result = /^([\w-]+)-(\d+)$/i.exec(className))) {
     return {
       prefix,
       color: result[1],
       shade: result[2],
     };
-  } else if ((result = /^(\w+)-(\d+)\/(\d*\.?\d+)$/.exec(className))) {
+  } else if ((result = /^([\w-]+)-(\d+)\/(\d*\.?\d+)$/i.exec(className))) {
     return {
       prefix,
       color: result[1],
       shade: result[2],
       opacity: result[3],
     };
-  } else if ((result = /^(\w+)$/.exec(className))) {
+  } else if ((result = /^([\w-]+)$/i.exec(className))) {
     return {
       prefix,
       color: result[1],
     };
-  } else if ((result = /^(\w+)\/(\d*\.?\d+)$/.exec(className))) {
+  } else if ((result = /^([\w-]+)\/(\d*\.?\d+)$/i.exec(className))) {
     return {
       prefix,
       color: result[1],

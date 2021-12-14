@@ -29,6 +29,14 @@ export const variableConfig: Record<
   'border-l': { attrs: ['border-left-color'], plugin: 'borderOpacity', variable: '--tw-border-opacity' },
   border: { attrs: ['border-color'], plugin: 'borderOpacity', variable: '--tw-border-opacity' },
   outline: { attrs: ['outline-color'] },
+  accent: { attrs: ['accent-color'] },
+  caret: { attrs: ['caret-color'] },
+  fill: { attrs: ['fill'] },
+  stroke: { attrs: ['stroke'] },
+  divide: { attrs: ['border-color'], plugin: 'divideOpacity', variable: '--tw-divide-opacity' },
+  shadow: { attrs: ['--tw-shadow-color'] },
+  'ring-offset': { attrs: ['--tw-ring-offset-color'] },
+  ring: { attrs: ['--tw-ring-color'], plugin: 'ringOpacity', variable: '--tw-ring-opacity' },
 };
 
 export const prefixes = Object.keys(variableConfig);

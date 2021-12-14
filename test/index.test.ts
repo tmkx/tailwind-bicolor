@@ -83,6 +83,62 @@ test('support outline', async (t) => {
   }
 });
 
+test('support accent', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:accent-lime-${a}`);
+    const bResult = await compileClassNames(`accent-lime-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
+test('support caret', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:caret-lime-${a}`);
+    const bResult = await compileClassNames(`caret-lime-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
+test('support fill', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:fill-lime-${a}`);
+    const bResult = await compileClassNames(`fill-lime-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
+test('support stroke', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:stroke-lime-${a}`);
+    const bResult = await compileClassNames(`stroke-lime-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
+test('support shadow', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:shadow-rose-${a}`);
+    const bResult = await compileClassNames(`shadow-rose-${b}`);
+    t.assert(aResult.includes(bResult.match(/(--tw-shadow-color:.+);/)?.[1] || 'UNMATCHED'));
+  }
+});
+
+test('support ring', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:ring-rose-${a}`);
+    const bResult = await compileClassNames(`ring-rose-${b}`);
+    t.assert(aResult.includes(bResult.match(/(--tw-ring-color:.+)/)?.[1] || 'UNMATCHED'));
+  }
+});
+
+test('support ring-offset', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:ring-offset-zinc-${a}`);
+    const bResult = await compileClassNames(`ring-offset-zinc-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
 test('support reverse `white` and `black`', async (t) => {
   t.true((await compileClassNames(`bi:bg-white`)).includes(await compileClassNames(`bg-black`)));
   t.true((await compileClassNames(`bi:bg-black`)).includes(await compileClassNames(`bg-white`)));
@@ -90,4 +146,5 @@ test('support reverse `white` and `black`', async (t) => {
 
 test('shout not affect unknown modifiers', async (t) => {
   t.is(await compileClassNames(`bi:text-inherit`), await compileClassNames(`text-inherit`));
+  t.is(await compileClassNames(`bi:text-current`), await compileClassNames(`text-current`));
 });
