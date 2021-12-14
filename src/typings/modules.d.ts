@@ -40,7 +40,7 @@ declare module 'tailwindcss/plugin' {
       /**
        * for looking up values in the user’s theme configuration
        */
-      theme: (path: string | string[], defaultValue?: string) => string;
+      theme: import('./global').ThemeFunction;
       /**
        * for looking up values in the user’s Tailwind configuration
        */
@@ -56,6 +56,12 @@ declare module 'tailwindcss/plugin' {
 }
 
 declare module 'tailwindcss/lib/util/withAlphaVariable' {
+  export function withAlphaValue<Alpha extends string | number>(
+    color: string | ((params: { opacityValue: Alpha }) => string),
+    alphaValue: Alpha,
+    defaultValue?: string
+  ): string;
+
   export default function withAlphaVariable(params: {
     color: string | Function;
     property: string;

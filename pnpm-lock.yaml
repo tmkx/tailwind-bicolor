@@ -4,17 +4,17 @@ specifiers:
   ava: ^4.0.0-rc.1
   postcss: ^8.4.5
   sucrase: ^3.20.3
-  tailwindcss: ^3.0.1
-  tsup: ^5.11.1
-  typescript: ^4.5.3
+  tailwindcss: ^3.0.2
+  tsup: ^5.11.2
+  typescript: ^4.5.4
 
 devDependencies:
   ava: 4.0.0-rc.1
   postcss: 8.4.5
   sucrase: 3.20.3
-  tailwindcss: 3.0.1_postcss@8.4.5
-  tsup: 5.11.1_typescript@4.5.3
-  typescript: 4.5.3
+  tailwindcss: 3.0.2_postcss@8.4.5
+  tsup: 5.11.2_typescript@4.5.4
+  typescript: 4.5.4
 
 packages:
 
@@ -1668,8 +1668,8 @@ packages:
       has-flag: 4.0.0
     dev: true
 
-  /tailwindcss/3.0.1_postcss@8.4.5:
-    resolution: {integrity: sha512-EVDXVZkcueZ77/zfOJw7XkzCuxe5TCiT/S9pw9P183oRzSuwMZ7WO+W/L76jbJQA5qxGeUBJOVOLVBuAUfeZ3g==}
+  /tailwindcss/3.0.2_postcss@8.4.5:
+    resolution: {integrity: sha512-i1KpjYnGYftjzdAth6jA5iMPjhxpUkk5L6DafhfnQs+KiiWaThYxmk47Weh4oFH1mZqP6MuiQNHxtoRVPOraLg==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -1748,8 +1748,8 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup/5.11.1_typescript@4.5.3:
-    resolution: {integrity: sha512-4J1kknLCT7dlVoyoGwSl62cUo7QIar89pdOFhK5V5T81M9G2MR1WFbPlFnc6kHC10qgLBeoJdjnrnscJn9yc/w==}
+  /tsup/5.11.2_typescript@4.5.4:
+    resolution: {integrity: sha512-Spm/9KiXZ41jREQrzZEl5vZNW9DQEozUz/sio7JGc5FajSSy+UE6vfwhujtk560NvuUiDLJgHpYgQZxjGb/i3w==}
     hasBin: true
     peerDependencies:
       typescript: ^4.2.3
@@ -1771,7 +1771,7 @@ packages:
       source-map: 0.7.3
       sucrase: 3.20.3
       tree-kill: 1.2.2
-      typescript: 4.5.3
+      typescript: 4.5.4
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -1788,8 +1788,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typescript/4.5.3:
-    resolution: {integrity: sha512-eVYaEHALSt+s9LbvgEv4Ef+Tdq7hBiIZgii12xXJnukryt3pMgJf6aKhoCZ3FWQsu6sydEnkg11fYXLzhLBjeQ==}
+  /typescript/4.5.4:
+    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

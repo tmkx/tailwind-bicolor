@@ -1,49 +1,25 @@
 import plugin from 'tailwindcss/plugin';
 import withAlphaVariable from 'tailwindcss/lib/util/withAlphaVariable';
-
-const modifierPairMap: Record<string, string> = {
-  white: 'black',
-  black: 'white',
-  50: '900',
-  100: '800',
-  200: '700',
-  300: '600',
-  400: '500',
-  500: '400',
-  600: '300',
-  700: '200',
-  800: '100',
-  900: '50',
-};
+import { variableConfig, modifierPairMap } from './config';
+import { ThemeFunction } from './typings/global';
+import { parseClassColor, ClassColor } from './parser';
 
 const getDarkColor = ({
   selector,
-  colorCode,
+  classColor,
   theme,
 }: {
   selector: string;
-  colorCode: string;
-  theme: (path: string | string[], defaultValue?: string) => string;
+  classColor: ClassColor;
+  theme: ThemeFunction;
 }): string => {
-  const path = colorCode.split('-');
-  const modifier = path.pop();
-
-  if (modifier && modifier in modifierPairMap) {
-    return theme(['colors', ...path, modifierPairMap[modifier]]);
+  if (classColor.shade && classColor.shade in modifierPairMap) {
+    return theme(['colors', classColor.color, modifierPairMap[classColor.shade]]);
+  } else if (classColor.color in modifierPairMap) {
+    return theme(['colors', modifierPairMap[classColor.color]]);
   }
-
   return '';
 };
-
-const variableConfig: Record<string, { prefix: string; plugin?: string; variable?: string }> = {
-  'background-color': { prefix: 'bg', plugin: 'backgroundOpacity', variable: '--tw-bg-opacity' },
-  color: { prefix: 'text', plugin: 'textOpacity', variable: '--tw-text-opacity' },
-  'text-decoration-color': { prefix: 'decoration' },
-  'border-color': { prefix: 'border', plugin: 'borderOpacity', variable: '--tw-border-opacity' },
-  'outline-color': { prefix: 'outline' },
-};
-
-const prefixes = Object.values(variableConfig).map(({ prefix }) => prefix);
 
 export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
   plugin(({ addVariant, theme, e: encode, corePlugins }) => {
@@ -52,11 +28,12 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
       ({ container }) => {
         container.walkRules((rule) => {
           const bareSelector = rule.selector.slice(1);
-          if (prefixes.every((prefix) => !bareSelector.startsWith(`${prefix}-`))) return;
+          const classColor = parseClassColor(bareSelector);
+          if (!classColor) return;
 
-          // get color name
-          const colorCode = bareSelector.replace(/^\w+\-/, '');
-          const color = getColor({ selector: bareSelector, colorCode, theme });
+          const colorConfig = variableConfig[classColor.prefix];
+
+          const color = getColor({ selector: bareSelector, classColor, theme });
           // warn: can't find the color
           if (!color) return;
 
@@ -68,13 +45,13 @@ export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
               return;
             }
 
-            if (decl.prop in variableConfig && bareSelector.startsWith(`${variableConfig[decl.prop].prefix}-`)) {
+            if (colorConfig.attrs.includes(decl.prop)) {
               decl.value =
-                variableConfig[decl.prop].variable && corePlugins(variableConfig[decl.prop].plugin)
+                colorConfig.variable && corePlugins(colorConfig.plugin)
                   ? withAlphaVariable({
                       color,
                       property: 'color',
-                      variable: variableConfig[decl.prop].variable!,
+                      variable: colorConfig.variable!,
                     }).color
                   : color;
             }
