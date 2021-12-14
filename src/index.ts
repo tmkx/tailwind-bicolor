@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin';
-import withAlphaVariable from 'tailwindcss/lib/util/withAlphaVariable';
+import withAlphaVariable, { withAlphaValue } from 'tailwindcss/lib/util/withAlphaVariable';
 import { variableConfig, modifierPairMap } from './config';
 import { ThemeFunction } from './typings/global';
 import { parseClassColor, ClassColor } from './parser';
@@ -27,7 +27,7 @@ export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {})
       '&',
       ({ container }) => {
         container.walkRules((rule) => {
-          const bareSelector = rule.selector.slice(1);
+          const bareSelector = rule.selector.slice(1).replace(/\\\//g, '/');
           const classColor = parseClassColor(bareSelector);
           if (!classColor) return;
 
@@ -40,14 +40,15 @@ export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {})
           rule.selector = `.dark .${variantName}${encode(`:${bareSelector}`)}`;
           rule.walkDecls((decl) => {
             if (colorConfig.attrs.includes(decl.prop)) {
-              decl.value =
-                colorConfig.variable && corePlugins(colorConfig.plugin)
-                  ? withAlphaVariable({
-                      color,
-                      property: 'color',
-                      variable: colorConfig.variable!,
-                    }).color
-                  : color;
+              decl.value = classColor.opacity
+                ? withAlphaValue(color, Number(classColor.opacity) / 100)
+                : colorConfig.variable && corePlugins(colorConfig.plugin)
+                ? withAlphaVariable({
+                    color,
+                    property: 'color',
+                    variable: colorConfig.variable!,
+                  }).color
+                : color;
             } else if (decl.prop.startsWith('--')) {
               // remove css variables (normal state has declared)
               decl.remove();

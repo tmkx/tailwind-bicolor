@@ -69,6 +69,14 @@ test('support text:hover', async (t) => {
   }
 });
 
+test('support custom opacity', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:text-red-${a}/30`);
+    const bResult = await compileClassNames(`text-red-${b}/30`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
 test('support decoration', async (t) => {
   for (const [a, b] of modifierPairs) {
     const aResult = await compileClassNames(`bi:decoration-teal-${a}`);

@@ -16,6 +16,7 @@ Auto handle tailwind dark color.
 - `bg-slate-50` to `bg-slate-900`
 - `bg-slate-100` to `bg-slate-800`
 - `bg-slate-200` to `bg-slate-700`
+- `bg-slate-300/40` to `bg-slate-600/40`
 - and so on...
 
 For example:
