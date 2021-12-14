@@ -59,6 +59,16 @@ test('support text', async (t) => {
   }
 });
 
+test('support text:hover', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compileClassNames(`bi:hover:text-red-${a}`);
+    const bResult = await compileClassNames(`hover:bi:text-red-${a}`);
+    const cResult = await compileClassNames(`hover:text-red-${b}`);
+    t.assert(aResult.includes(cResult));
+    t.assert(bResult.includes(cResult));
+  }
+});
+
 test('support decoration', async (t) => {
   for (const [a, b] of modifierPairs) {
     const aResult = await compileClassNames(`bi:decoration-teal-${a}`);

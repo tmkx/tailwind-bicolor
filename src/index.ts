@@ -4,7 +4,7 @@ import { variableConfig, modifierPairMap } from './config';
 import { ThemeFunction } from './typings/global';
 import { parseClassColor, ClassColor } from './parser';
 
-const getDarkColor = ({
+export const getReverseColor = ({
   selector,
   classColor,
   theme,
@@ -21,7 +21,7 @@ const getDarkColor = ({
   return '';
 };
 
-export const bicolor = ({ variantName = 'bi', getColor = getDarkColor } = {}) =>
+export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {}) =>
   plugin(({ addVariant, theme, e: encode, corePlugins }) => {
     addVariant(variantName, [
       '&',
