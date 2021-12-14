@@ -1,8 +1,35 @@
+import postcss, { Rule } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
 import plugin from 'tailwindcss/plugin';
 import withAlphaVariable, { withAlphaValue } from 'tailwindcss/lib/util/withAlphaVariable';
 import { variableConfig, modifierPairMap } from './config';
 import { ThemeFunction } from './typings/global';
 import { parseClassColor, ClassColor } from './parser';
+
+const wrapMediaDarkRule = (() => {
+  const darkRule = postcss.atRule({
+    name: 'media',
+    params: '(prefers-color-scheme: dark)',
+  });
+  return (rule: Rule) => {
+    rule.replaceWith(
+      darkRule.clone({
+        nodes: [rule],
+      })
+    );
+  };
+})();
+
+const addDarkClass = (() => {
+  const parser = selectorParser((selectors) => {
+    selectors.each((selector) => {
+      const firstChild = selector.at(0);
+      selector.insertBefore(firstChild, selectorParser.className({ value: 'dark' }));
+      selector.insertBefore(firstChild, selectorParser.combinator({ value: ' ' }));
+    });
+  });
+  return (selector: string) => parser.processSync(selector);
+})();
 
 export const getReverseColor = ({
   selector,
@@ -22,10 +49,12 @@ export const getReverseColor = ({
 };
 
 export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {}) =>
-  plugin(({ addVariant, theme, e: encode, corePlugins }) => {
+  plugin(({ addVariant, config, theme, e: encode, corePlugins }) => {
+    const darkMode = config('darkMode', 'media');
+
     addVariant(variantName, [
       '&',
-      ({ container }) => {
+      ({ container, separator }) => {
         container.walkRules((rule) => {
           const bareSelector = rule.selector.slice(1).replace(/\\\//g, '/');
           const classColor = parseClassColor(bareSelector);
@@ -37,7 +66,6 @@ export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {})
           // warn: can't find the color
           if (!color) return;
 
-          rule.selector = `.dark .${variantName}${encode(`:${bareSelector}`)}`;
           rule.walkDecls((decl) => {
             if (colorConfig.attrs.includes(decl.prop)) {
               decl.value = classColor.opacity
@@ -55,6 +83,12 @@ export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {})
               return;
             }
           });
+
+          if (darkMode === 'class') {
+            rule.selector = addDarkClass(`.${variantName}${encode(`${separator}${bareSelector}`)}`);
+          } else {
+            wrapMediaDarkRule(rule);
+          }
         });
       },
     ]);

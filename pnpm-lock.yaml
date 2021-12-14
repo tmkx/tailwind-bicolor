@@ -5,7 +5,7 @@ specifiers:
   postcss: ^8.4.5
   sucrase: ^3.20.3
   tailwindcss: ^3.0.2
-  tsup: ^5.11.2
+  tsup: ^5.11.4
   typescript: ^4.5.4
 
 devDependencies:
@@ -13,7 +13,7 @@ devDependencies:
   postcss: 8.4.5
   sucrase: 3.20.3
   tailwindcss: 3.0.2_postcss@8.4.5
-  tsup: 5.11.2_typescript@4.5.4
+  tsup: 5.11.4_typescript@4.5.4
   typescript: 4.5.4
 
 packages:
@@ -1748,8 +1748,8 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup/5.11.2_typescript@4.5.4:
-    resolution: {integrity: sha512-Spm/9KiXZ41jREQrzZEl5vZNW9DQEozUz/sio7JGc5FajSSy+UE6vfwhujtk560NvuUiDLJgHpYgQZxjGb/i3w==}
+  /tsup/5.11.4_typescript@4.5.4:
+    resolution: {integrity: sha512-xDpGHCRHn2McoxneCS6ljz2Ab+8vhpF0jpc/LEpA6tzWC347Z3T+zen4de8VanjYpeKUvTrLxrXdzdvd0DAdGQ==}
     hasBin: true
     peerDependencies:
       typescript: ^4.2.3
