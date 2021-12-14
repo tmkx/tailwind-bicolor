@@ -56,7 +56,9 @@ export const bicolor = ({ variantName = 'bi', getColor = getReverseColor } = {})
       '&',
       ({ container, separator }) => {
         container.walkRules((rule) => {
-          const bareSelector = rule.selector.slice(1).replace(/\\\//g, '/');
+          // 1. convert `bg-slate-100\/20` to `bg-slate-100/20`
+          // 2. `divide-slate-200` will be `.divide-slate-200 > :not([hidden]) ~ :not([hidden])`, convert it to `divide-slate-200`
+          const bareSelector = rule.selector.slice(1).replace(/\\\//g, '/').split(' ')[0];
           const classColor = parseClassColor(bareSelector);
           if (!classColor) return;
 

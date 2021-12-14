@@ -65,3 +65,4 @@ prefix support list:
 - stroke
 - shadow
 - ring, ring-offset
+- divide

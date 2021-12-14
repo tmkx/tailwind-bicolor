@@ -10,6 +10,7 @@ const compile = createClassNamesCompiler({
     textOpacity: false,
     backgroundOpacity: false,
     borderOpacity: false,
+    divideOpacity: false,
   },
   plugins: [bicolor()],
 });
@@ -172,6 +173,16 @@ test('support ring-offset', async (t) => {
   for (const [a, b] of modifierPairs) {
     const aResult = await compile(`bi:ring-offset-zinc-${a}`);
     const bResult = await compile(`ring-offset-zinc-${b}`);
+    t.assert(aResult.includes(bResult));
+  }
+});
+
+test('support divide', async (t) => {
+  for (const [a, b] of modifierPairs) {
+    const aResult = await compile(`bi:divide-zinc-${a}`);
+    const bResult = await compile(`divide-zinc-${b}`);
+    t.assert(aResult.includes('.test'));
+    t.assert(bResult.includes('.test'));
     t.assert(aResult.includes(bResult));
   }
 });
