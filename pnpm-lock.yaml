@@ -1,28 +1,30 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@types/node': ^16.11.12
-  '@vitejs/plugin-vue': ^2.0.0
+  '@types/node': ^16.11.13
+  '@vitejs/plugin-vue': ^2.0.1
   autoprefixer: ^10.4.0
+  highlight.js: ^11.3.1
   postcss: ^8.4.5
   sass: ^1.45.0
-  tailwind-bicolor: ^0.0.2
-  tailwindcss: ^3.0.1
-  vite: ^2.7.1
+  tailwind-bicolor: ^0.0.3
+  tailwindcss: ^3.0.2
+  vite: ^2.7.2
   vue: ^3.2.26
 
 dependencies:
+  highlight.js: 11.3.1
   vue: 3.2.26
 
 devDependencies:
-  '@types/node': 16.11.12
-  '@vitejs/plugin-vue': 2.0.0_vite@2.7.1+vue@3.2.26
+  '@types/node': 16.11.13
+  '@vitejs/plugin-vue': 2.0.1_vite@2.7.2+vue@3.2.26
   autoprefixer: 10.4.0_postcss@8.4.5
   postcss: 8.4.5
   sass: 1.45.0
-  tailwind-bicolor: 0.0.2_postcss@8.4.5+tailwindcss@3.0.1
-  tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
-  vite: 2.7.1_sass@1.45.0
+  tailwind-bicolor: 0.0.3_postcss@8.4.5+tailwindcss@3.0.2
+  tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
+  vite: 2.7.2_sass@1.45.0
 
 packages:
 
@@ -74,22 +76,22 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@types/node/16.11.12:
-    resolution: {integrity: sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==}
+  /@types/node/16.11.13:
+    resolution: {integrity: sha512-eUXZzHLHoZqj1frtUetNkUetYoJ6X55UmrVnFD4DMhVeAmwLjniZhtBmsRiemQh4uq4G3vUra/Ws/hs9vEvL3Q==}
     dev: true
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
 
-  /@vitejs/plugin-vue/2.0.0_vite@2.7.1+vue@3.2.26:
-    resolution: {integrity: sha512-4Xn1h9OcaAf7KYrvz2oEi52fCCCLcCzyr3pDOrzYTWrs0DrzNOXt9fT5IiGb1f/uoNTdX3aAkXVGNXrGkzF/zw==}
+  /@vitejs/plugin-vue/2.0.1_vite@2.7.2+vue@3.2.26:
+    resolution: {integrity: sha512-wtdMnGVvys9K8tg+DxowU1ytTrdVveXr3LzdhaKakysgGXyrsfaeds2cDywtvujEASjWOwWL/OgWM+qoeM8Plg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.7.1_sass@1.45.0
+      vite: 2.7.2_sass@1.45.0
       vue: 3.2.26
     dev: true
 
@@ -656,6 +658,11 @@ packages:
       function-bind: 1.1.1
     dev: true
 
+  /highlight.js/11.3.1:
+    resolution: {integrity: sha512-PUhCRnPjLtiLHZAQ5A/Dt5F8cWZeMyj9KRsACsWT+OD6OP0x6dp5OmT5jdx0JgEyPxPZZIPQpRN2TciUT7occw==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /immutable/4.0.0:
     resolution: {integrity: sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==}
     dev: true
@@ -990,18 +997,18 @@ packages:
       has-flag: 4.0.0
     dev: true
 
-  /tailwind-bicolor/0.0.2_postcss@8.4.5+tailwindcss@3.0.1:
-    resolution: {integrity: sha512-dgYE+KGK8x3v7wXEg5B2Zw2YVyuFnr4cImOeONiX/gLR1jVblVlLselEUCem6om/vxIm/ig6lIRkETN/hqrdsA==}
+  /tailwind-bicolor/0.0.3_postcss@8.4.5+tailwindcss@3.0.2:
+    resolution: {integrity: sha512-Waw965vYv++R8p5Msmd+7UPcSRjEmxWprfgvLsmdp2PZtssFRgJ0t5Q2+sf0inX5TZiy8zi3+Z7fDzH/RezONA==}
     peerDependencies:
       postcss: ^8.0.0
       tailwindcss: ^3.0.0
     dependencies:
       postcss: 8.4.5
-      tailwindcss: 3.0.1_16a290f6d0e3717bf6d2667234aebd30
+      tailwindcss: 3.0.2_16a290f6d0e3717bf6d2667234aebd30
     dev: true
 
-  /tailwindcss/3.0.1_16a290f6d0e3717bf6d2667234aebd30:
-    resolution: {integrity: sha512-EVDXVZkcueZ77/zfOJw7XkzCuxe5TCiT/S9pw9P183oRzSuwMZ7WO+W/L76jbJQA5qxGeUBJOVOLVBuAUfeZ3g==}
+  /tailwindcss/3.0.2_16a290f6d0e3717bf6d2667234aebd30:
+    resolution: {integrity: sha512-i1KpjYnGYftjzdAth6jA5iMPjhxpUkk5L6DafhfnQs+KiiWaThYxmk47Weh4oFH1mZqP6MuiQNHxtoRVPOraLg==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -1053,8 +1060,8 @@ packages:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
     dev: true
 
-  /vite/2.7.1_sass@1.45.0:
-    resolution: {integrity: sha512-TDXXhcu5lyQ6uosK4ZWaOyB4VzOiizk0biitRzDzaEtgSUi8rVYPc4k1xgOjLSf0OuceDJmojFKXHOX9DB1WuQ==}
+  /vite/2.7.2_sass@1.45.0:
+    resolution: {integrity: sha512-wMffVVdKZRZP/HwW3yttKL8X+IJePz7bUcnGm0vqljffpVwHpjWC3duZtJQHAGvy+wrTjmwU7vkULpZ1dVXY6w==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:

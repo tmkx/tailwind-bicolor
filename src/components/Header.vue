@@ -1,8 +1,12 @@
 <template>
-  <header class="max-w-5xl m-auto flex justify-between leading-10 mb-6">
-    <div>tailwind-bicolor</div>
-    <div>
-      <button class="bi:bg-blue-500 text-white text-sm py-1 px-2 rounded" @click="handleToggleTheme">Toggle Theme</button>
+  <header class="mb-6 py-2 sticky top-0 bi:bg-slate-50">
+    <div class="container m-auto flex justify-between px-6 leading-10">
+      <div>tailwind-bicolor</div>
+      <div>
+        <button class="bi:bg-blue-500 text-white text-sm py-1 px-2 rounded" @click="handleToggleTheme">
+          Toggle Theme
+        </button>
+      </div>
     </div>
   </header>
 </template>
