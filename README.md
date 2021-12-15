@@ -1,6 +1,6 @@
 # tailwind-bicolor
 
-Auto handle tailwind dark color.
+Auto handle tailwind dark mode color, support `class` and `media`.
 
 ```html
 <div class="bg-white dark:bg-black"></div>
