@@ -2,6 +2,7 @@ import fs from 'fs';
 import childProcess from 'child_process';
 import path from 'path';
 import { promisify } from 'util';
+import postcss from 'postcss';
 
 const writeFile = promisify(fs.writeFile);
 const readFile = promisify(fs.readFile);
@@ -24,7 +25,7 @@ export async function run(title: string, content: string, config = { preset: 'de
   await writeFile(inputCss, ['@tailwind base', '@tailwind components', '@tailwind utilities'].join(';\n'));
   await writeFile(inputFile, content);
 
-  const configPath = path.join(__dirname, 'configs', `tailwind.${config.preset}.js`);
+  const configPath = path.join(__dirname, 'configs', `tailwind.${config.preset}.ts`);
 
   const { stdout, stderr } = await execFile(
     'npx',
@@ -46,6 +47,22 @@ export async function run(title: string, content: string, config = { preset: 'de
     stderr,
     output: await readFile(outputFile, { encoding: 'utf8' }),
   };
+}
+
+export function removeAsteriskStyle(css: string) {
+  return postcss([
+    {
+      postcss: (root) => {
+        const blockList = ['*, ::before, ::after', '::backdrop'];
+
+        root.walkRules((rule) => {
+          if (blockList.includes(rule.selector)) rule.remove();
+        });
+      },
+    },
+  ])
+    .process(css, { from: undefined })
+    .then((res) => res.css);
 }
 
 export function init() {

@@ -1,6 +1,6 @@
 import test from 'ava';
 import colors from 'tailwindcss/colors';
-import { init, run } from './helpers';
+import { init, removeAsteriskStyle, run } from './helpers';
 import { findStringCount, withAlphaVariable, withAlphaValue } from '../helpers';
 
 test.before(() => {
@@ -9,7 +9,7 @@ test.before(() => {
 
 test('should not affect non-bi classes', async (t) => {
   const { output } = await run(t.title, `<div class="bg-green-100" />`);
-  t.snapshot(output);
+  t.snapshot(await removeAsteriskStyle(output));
 });
 
 test('support common usage', async (t) => {
